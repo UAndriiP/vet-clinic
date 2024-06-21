@@ -5,26 +5,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    static String password = "a";
+    static String password = "default";
     static Scanner scanner = new Scanner(System.in);
 
     static String email_pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-    static String name_pattern = "^[a-zA-Z-]{3,}$";
 
     public static void main(String[] args) {
         run();
+
     }
 
     static void run() {
         if (auth()) {
             registerNewClient();
+
         }
+
     }
 
     static boolean auth() {
         boolean accepted = false;
         for (int i = 0; i < 3; i++) {
-            System.out.print("Password: ");
+            System.out.println("Password: ");
             String input = scanner.nextLine();
             if (password.equals(input)) {
                 accepted = true;
@@ -39,12 +41,12 @@ public class Main {
 
     static void registerNewClient() {
         System.out.println("Please provide client details.");
-        System.out.print("Email: ");
+        System.out.println("Email: ");
         String email = scanner.nextLine();
 
         if (inEmailValid(email)) {
             Client client = buildClient(email);
-            System.out.println("New client: " + client.firstName.toUpperCase() + " " + client.lastName.toUpperCase() + " (" + client.email + ")");
+            System.out.println("New client; " + client.firstName + " " + client.lastName + " (" + client.email + ")");
 
         } else {
             System.out.println("Provided email is invalid");
@@ -52,40 +54,19 @@ public class Main {
     }
 
     static Client buildClient(String email) {
-        Client client = new Client();
-        client.email = email;
+        Client client=new Client();
+        client.email=email;
 
-        do {
-            System.out.print("First name: ");
-            client.firstName = scanner.nextLine();
-            if (!validName(client.firstName)) {
-                System.out.println("Wrong format (min 3 symbols)");
-            }
-        }
-        while (!validName(client.firstName));
-
-        do {
-            System.out.print("Last name: ");
-            client.lastName = scanner.nextLine();
-            if (!validName(client.lastName)) {
-                System.out.println("Wrong format (min 3 symbols)");
-            }
-        }
-        while (!validName(client.lastName));
-
+        System.out.println("First name: ");
+        client.firstName= scanner.nextLine();
+        System.out.println("Last name: ");
+        client.lastName= scanner.nextLine();
         return client;
     }
 
     static boolean inEmailValid(String email) {
-        Pattern pattern = Pattern.compile(email_pattern);
-        Matcher matcher = pattern.matcher(email);
+        Pattern pattern=Pattern.compile(email_pattern);
+        Matcher matcher= pattern.matcher(email);
         return matcher.matches();
     }
-
-    static boolean validName(String validName) {
-        Pattern pattern = Pattern.compile(name_pattern);
-        Matcher matcher = pattern.matcher(validName);
-        return matcher.matches();
-    }
-
 }
