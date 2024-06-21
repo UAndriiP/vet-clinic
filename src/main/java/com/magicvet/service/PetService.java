@@ -1,47 +1,30 @@
 package main.java.com.magicvet.service;
 
 import main.java.com.magicvet.Main;
+import main.java.com.magicvet.model.Cat;
 import main.java.com.magicvet.model.Dog;
 import main.java.com.magicvet.model.Pet;
 
 public class PetService {
     private static final String dog_type = "dog";
+    private static final String cat_type = "cat";
 
     public Pet registerNewPet() {
-        Pet pet = new Pet();
-        System.out.print("Type (dog / cat / other): ");
+        Pet pet = null;
+        System.out.print("Type (dog / cat): ");
 
         String type = Main.scanner.nextLine();
 
-        if (dog_type.equals(type)) {
-            pet = buildDog();
-        } else {
+        if (dog_type.equals(type) || cat_type.equals(type)) {
             pet = buildPet(type);
+        } else {
+            System.out.println("Unknown pet type: " + type);
         }
         return pet;
     }
 
-    private Dog buildDog() {
-        Pet pet = buildPet(dog_type);
-        Dog dog = petToDog(pet);
-
-        System.out.print("Size (xS / S / M / L / XXL)");
-        dog.setSize(Main.scanner.nextLine());
-
-        return dog;
-    }
-
-    private Dog petToDog(Pet pet) {
-        Dog dog = new Dog();
-        dog.setAge(pet.getAge());
-        dog.setName(pet.getName());
-        dog.setSex(pet.getSex());
-
-        return dog;
-    }
-
     private Pet buildPet(String type) {
-        Pet pet = new Pet();
+        Pet pet = type.equals(cat_type)?new Cat():new Dog();
         pet.setType(type);
 
         System.out.print("Age: ");
@@ -51,6 +34,10 @@ public class PetService {
         System.out.print("Sex (male / female): ");
         pet.setSex(Main.scanner.nextLine());
 
+        if (type.equals(dog_type)){
+            System.out.println("Size (xS / S / M / L / XXL): ");
+            ((Dog)pet).setSize(Main.scanner.nextLine());
+        }
         return pet;
     }
 
