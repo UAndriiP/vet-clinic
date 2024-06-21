@@ -20,8 +20,8 @@ public class ClientService {
 
         if (inEmailValid(email)) {
             client = buildClient(email);
-            System.out.print("New client: " + client.getFirstName().toUpperCase() + " "
-                    + client.getLastName().toUpperCase() + " ("
+            System.out.print("New client: " + client.getFirstName() + " "
+                    + client.getLastName() + " ("
                     + client.getEmail() + ")");
 
         } else {
