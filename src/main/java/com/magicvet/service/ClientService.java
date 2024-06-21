@@ -8,10 +8,11 @@ import java.util.regex.Pattern;
 
 public class ClientService {
 
-    private static String email_pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    private static final String email_pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    private static final String name_pattern = "^[a-zA-Z-]{3,}$";
 
     public Client registerNewClient() {
-        Client client=null;
+        Client client = null;
 
         System.out.println("Please provide client details.");
         System.out.print("Email: ");
@@ -19,8 +20,8 @@ public class ClientService {
 
         if (inEmailValid(email)) {
             client = buildClient(email);
-            System.out.print("New client: " + client.getFirstName() + " "
-                    + client.getLastName() + " ("
+            System.out.print("New client: " + client.getFirstName().toUpperCase() + " "
+                    + client.getLastName().toUpperCase() + " ("
                     + client.getEmail() + ")");
 
         } else {
@@ -28,19 +29,41 @@ public class ClientService {
         }
         return client;
     }
+
     private static Client buildClient(String email) {
-        Client client=new Client();
+        Client client = new Client();
         client.setEmail(email);
 
-        System.out.print("First name: ");
-        client.setFirstName(Main.scanner.nextLine());
-        System.out.print("Last name: ");
-        client.setLastName(Main.scanner.nextLine());
+        do {
+            System.out.print("First name: ");
+            client.setFirstName(Main.scanner.nextLine());
+            if (!validName(client.getFirstName())) {
+                System.out.println("Repeat enter (min 3 symbols)");
+            }
+        }
+        while (!validName(client.getFirstName()));
+
+        do {
+            System.out.print("Last name: ");
+            client.setLastName(Main.scanner.nextLine());
+            if (!validName(client.getLastName())) {
+                System.out.println("Repeat enter (min 3 symbols)");
+            }
+        }
+        while (!validName(client.getLastName()));
+
         return client;
     }
 
     private static boolean inEmailValid(String email) {
-        Pattern pattern=Pattern.compile(email_pattern);
-        Matcher matcher= pattern.matcher(email);
+        Pattern pattern = Pattern.compile(email_pattern);
+        Matcher matcher = pattern.matcher(email);
         return matcher.matches();
-    }}
+    }
+
+    private static boolean validName(String validName) {
+        Pattern pattern = Pattern.compile(name_pattern);
+        Matcher matcher = pattern.matcher(validName);
+        return matcher.matches();
+    }
+}

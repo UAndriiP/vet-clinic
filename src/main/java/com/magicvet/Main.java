@@ -2,7 +2,6 @@ package main.java.com.magicvet;
 
 import main.java.com.magicvet.component.ApplicationRunner;
 
-
 import java.util.Scanner;
 
 

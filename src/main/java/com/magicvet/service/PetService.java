@@ -28,7 +28,6 @@ public class PetService {
         System.out.print("Size (xS / S / M / L / XXL)");
         dog.setSize(Main.scanner.nextLine());
 
-
         return dog;
     }
 
