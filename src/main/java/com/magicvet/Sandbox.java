@@ -27,5 +27,7 @@ public class Sandbox {
         for (Dog dog : dogs) {
             System.out.println(dog.getSize());
         }
+
+        System.out.println(new Cat());
     }
 }
