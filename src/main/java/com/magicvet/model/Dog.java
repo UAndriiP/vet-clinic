@@ -1,17 +1,25 @@
 package main.java.com.magicvet.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Dog extends Pet {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
     private Size size;
-    private final LocalDateTime registrationDate = LocalDateTime.now();
-
 
     public Dog() {
+    }
+
+    @Override
+    public String toString() {
+        return "Pet {"
+                + " type = " + getType()
+                + ", sex = " + getSex()
+                + ", age = " + getAge()
+                + ", name = " + getName()
+                + ", size = " + getSize()
+                + ", ownerName = " + getOwnerName()
+                + ", registrationDate = " + getRegistrationDate().format(formatter)
+                + "}";
     }
 
     public Dog(Size size) {
@@ -26,20 +34,6 @@ public class Dog extends Pet {
         return size;
     }
 
-
-    @Override
-    public String toString() {
-        return "{"
-                + " type = dog"
-                + ", sex = " + getSex()
-                + ", age = " + getAge()
-                + ", name = " + getName()
-                + ", size = " + size
-                + ", ownerName = " + getOwnerName()
-                + ", registrationDate = " + registrationDate.format(formatter)
-                + "}";
-
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -62,11 +56,22 @@ public class Dog extends Pet {
         M(3),
         L(4),
         XL(5),
-        unknown(0);
+        UNKNOWN(0);
         private final int value;
 
         Size(int value) {
             this.value = value;
+        }
+
+        public static Size fromString(String value) {
+            for (Size size : values()) {
+                if (size.toString().equals(value)) {
+                    return size;
+                }
+            }
+
+            System.out.println("Unable to parse value '" + value + "'.Using default value: " + UNKNOWN);
+            return UNKNOWN;
         }
 
         public int getValue() {

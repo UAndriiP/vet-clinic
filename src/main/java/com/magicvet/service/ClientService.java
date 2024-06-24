@@ -51,9 +51,19 @@ public class ClientService {
             }
         }
         while (!validName(client.getLastName()));
+
         System.out.println("Location: ");
-        String location=Main.scanner.nextLine();
-        client.setLocation(Client.Location.valueOf(location));
+
+        Client.Location location;
+        String locationInput = Main.scanner.nextLine();
+        try {
+            location = Client.Location.valueOf(locationInput);
+        } catch (IllegalArgumentException e) {
+            location = Client.Location.UNKNOWN;
+            System.out.println("Unable to parse value '" + locationInput
+                    + "'.Using default value: " + Client.Location.UNKNOWN);
+        }
+        client.setLocation(location);
         return client;
     }
 
