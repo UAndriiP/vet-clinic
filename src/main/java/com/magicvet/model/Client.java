@@ -1,14 +1,19 @@
 package main.java.com.magicvet.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Client {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private String firstName;
     private String lastName;
     private String email;
     private List<Pet> pets = new ArrayList<>();
+    private final LocalDateTime registrationDate = LocalDateTime.now();
 
     @Override
     public String toString() {
@@ -16,6 +21,7 @@ public class Client {
                 + "\n\tfirstName = " + firstName
                 + ", lastName = " + lastName
                 + ", email = " + email
+                + ", regDate = " + registrationDate.format(formatter)
                 + "\n\tpets : " + pets
                 + "\n}";
     }
@@ -71,4 +77,5 @@ public class Client {
     public void addPet(Pet pet) {
         pets.add(pet);
     }
+
 }
