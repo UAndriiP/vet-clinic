@@ -24,14 +24,14 @@ public class Dog extends Pet {
 
     @Override
     public String toString() {
-        return ""
+        return "{"
                 + " type = dog"
                 + ", sex = " + getSex()
                 + ", age = " + getAge()
                 + ", name = " + getName()
                 + ", size = " + size
                 + ", ownerName = " + getOwnerName()
-                + "";
+                + "}";
 
     }
 

@@ -18,7 +18,7 @@ public class Authenticator {
                 System.out.println("Access denied. Please check your password.");
             }
         }
-        System.out.println(accepted ? "Welcome to the Magic Vet!" : "Application hsa been blocked");
+        System.out.println(accepted ? "Welcome to the Magic Vet!" : "Application has been blocked");
         return accepted;
     }
 }
