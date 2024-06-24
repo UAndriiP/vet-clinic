@@ -36,7 +36,8 @@ public class PetService {
 
         if (type.equals(dog_type)){
             System.out.println("Size (xS / S / M / L / XL): ");
-            ((Dog)pet).setSize(Main.scanner.nextLine());
+            String size=Main.scanner.nextLine();
+            ((Dog)pet).setSize(Dog.Size.valueOf(size));
         }
         return pet;
     }
